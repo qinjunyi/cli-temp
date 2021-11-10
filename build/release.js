@@ -8,7 +8,7 @@ const semverInc = semver.inc;
 const pkg = require('../package.json');
 
 const currentVersion = pkg.version;
-
+const mainBranch = 'master';
 const run = async (command) => {
   console.log(chalk.green(command));
   return await exec(command);
@@ -65,7 +65,7 @@ const push = async (nextVersion) => {
   await run('git add .');
   await run(`git commit -m "ci: 🎡 release v${nextVersion}" -n`);
   await run('git push');
-  await run(`git checkout master`);
+  await run(`git checkout ${mainBranch}`);
   await run(
     `git merge ${curBranchName} && git push && git checkout ${curBranchName}`
   );
